@@ -2,16 +2,28 @@ const db = require("../data/db-config.js");
 
 module.exports = {
   getProjects,
+  getProjectById,
   getTasks,
+  getTasksByProjectId,
   getResources,
 }
 
-function getProjects (id) {
+function getProjects () {
   return db("Project");
 }
 
-function getTasks (id) {
+function getProjectById (id) {
+  return db("Project")
+    .where({ id: id })
+    .first();
+}
+
+function getTasks () {
   return db("Task");
+}
+
+function getTasksByProjectId (id) {
+  // TODO
 }
 
 function getResources () {
