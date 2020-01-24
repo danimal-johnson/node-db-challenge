@@ -1,0 +1,27 @@
+
+### Is the server on?
+get http://localhost:2020/
+
+
+### Get a list of all the projects
+get http://localhost:2020/api/projects
+
+
+### Get a list of all the resources
+get http://localhost:2020/api/resources
+
+### List all the tasks
+get http://localhost:2020/api/tasks
+
+### List all the tasks for a project
+get http://localhost:2020/api/tasks:1
+
+
+### Add a task
+post http://localhost:2020/api/tasks:1
+content-type: application/json
+
+{
+  "description": "Create a task",
+  "notes": "This is a requirement for MVP"
+}
