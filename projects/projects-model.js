@@ -48,11 +48,6 @@ function getTasksByProjectId (id) {
   .join("Project as P", "T.project_id", "=", "P.id")
   .select("T.id as Task.id", "T.description", "T.notes", "T.completed")
   .where('P.id', id);
-
-  // return db("Task as T")
-  //   .join ("Project as P", "P.id", "T.project_id")
-  //   .where({project_id: id})
-  //   .select('')
 }
 
 function getAllResources () {
@@ -66,7 +61,16 @@ function getResourceById (id) {
 }
 
 function getResourcesByProjectId (id) {
-  // For future use
+//   SELECT R.id, R.name, R.description
+// FROM Resource as R
+// JOIN Project_Resource as P
+//     ON R.id = P.resource_id
+// WHERE P.project_id = 1;
+
+return db("Resource as R")
+.join("Project_Resource as P", "P.resource_id", "=", "R.id")
+.select("R.id", "R.name", "R.description",)
+.where('P.project_id', id);
 }
 
 // ------ Add New items -------

@@ -8,15 +8,18 @@ get http://localhost:2020/
 get http://localhost:2020/api/projects
 
 ### Get a specific project
-get http://localhost:2020/api/projects/1
+get http://localhost:2020/api/projects/2
 
 ### Get a list of all the resources
 get http://localhost:2020/api/resources
 
+### Get the resources for a project
+get http://localhost:2020/api/resources/1
+
 ### List all the tasks
 get http://localhost:2020/api/tasks
 
-### List all the tasks for a project
+### List the tasks for a project
 get http://localhost:2020/api/tasks/1
 
 ####### POST calls ########

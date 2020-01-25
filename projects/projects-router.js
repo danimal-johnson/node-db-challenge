@@ -21,12 +21,29 @@ router.get('/projects/:id', (req, res) => {
   Projects.getProjectById(id)
   .then(project => {
     if (project) {
-      res.json(project);
-    } else {
+      Promise.all([ Projects.getTasksByProjectId(id),
+                    Projects.getResourcesByProjectId(id)])
+        .then(result => {
+            project.tasks = result[0];
+            project.resources = result[1];
+            res.json(project);
+        })
+      // Projects.getTasksByProjectId(id)
+      //   .then(tasks => {
+      //     console.log(`Found ${tasks.length} tasks for project ${id}`);
+      //     project.tasks = tasks;
+      //     console.log(`Stored ${project.tasks.length} tasks.`);
+      //     res.json(project);
+      //   })
+      //   .catch(err => console.log(err));
+      // res.json(project);
+    }
+    else {
       res.status(404).json({ message: 'Could not find project with given id.' })
     }
   })
   .catch(err => {
+    console.log(err);
     res.status(500).json({ message: 'Failed to get projects' });
   });
 });
@@ -37,6 +54,19 @@ router.get('/resources', (req, res) => {
       res.json(resources);
     })
     .catch(err => {
+      res.status(500).json({ message: 'Failed to get resources' });
+    });
+})
+
+// Get Resources for a specific project
+router.get('/resources/:id', (req, res) => {
+  const { id } = req.params;
+  Projects.getResourcesByProjectId(id)
+    .then(resources => {
+      res.json(resources);
+    })
+    .catch(err => {
+      console.log(`Error getting resources for project ${id}: ${err}`);
       res.status(500).json({ message: 'Failed to get resources' });
     });
 })
