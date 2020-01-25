@@ -1,13 +1,55 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('Tasks').truncate()
+  return knex('Task').truncate()
     .then(function () {
       // Inserts seed entries
-      return knex('Tasks').insert([
-        {id: 1, description: '', notes: '', completed: false},
-        {id: 2, description: '', notes: '', completed: false},
-        {id: 3, description: '', notes: '', completed: false}
-      ]);
+      return knex('Task').insert([
+        { id: 1,
+          project_id: 1,
+          description: 'Gnaw through the leather straps.',
+          notes: '',
+          completed: false},
+        { id: 2,
+          project_id: 1,
+          description: 'Distract the guard.',
+          notes: '',
+          completed: false},
+        { id: 3,
+          project_id: 1,
+          description: 'Sneak off to the kitchen.',
+          notes: '',
+          completed: false},
+        { id: 4,
+          project_id: 1,
+          description: 'Grab a snack.',
+          notes: '',
+          completed: false},
+        { id: 5,
+          project_id: 1,
+          description: 'Exit through the ventilation system.',
+          notes: '',
+          completed: false},
+        { id: 6,
+          project_id: 2,
+          description: 'Fork.',
+          notes: 'Always fork before you clone.',
+          completed: false},
+        { id: 7,
+          project_id: 2,
+          description: 'Complete the assignment.',
+          notes: '',
+          completed: false},
+        { id: 8,
+          project_id: 2,
+          description: 'Debug/test the assignment.',
+          notes: '',
+          completed: false},
+        { id: 9,
+          project_id: 2,
+          description: 'Make a pull request.',
+          notes: 'Always compare against your own project. Always.',
+          completed: false},
+      ])
     });
 };

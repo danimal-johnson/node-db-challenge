@@ -2,10 +2,13 @@
 ### Is the server on?
 get http://localhost:2020/
 
+######## GET calls ########
 
 ### Get a list of all the projects
 get http://localhost:2020/api/projects
 
+### Get a specific project
+get http://localhost:2020/api/projects/1
 
 ### Get a list of all the resources
 get http://localhost:2020/api/resources
@@ -14,14 +17,34 @@ get http://localhost:2020/api/resources
 get http://localhost:2020/api/tasks
 
 ### List all the tasks for a project
-get http://localhost:2020/api/tasks:1
+get http://localhost:2020/api/tasks/1
 
+####### POST calls ########
 
 ### Add a task
-post http://localhost:2020/api/tasks:1
+post http://localhost:2020/api/tasks
 content-type: application/json
 
 {
-  "description": "Create a task",
-  "notes": "This is a requirement for MVP"
+  "project_id": 2,
+  "description": "Submit a sprint retro form.",
+  "notes": "Don't forget!"
+}
+
+### Add a project
+post http://localhost:2020/api/projects
+content-type: application/json
+
+{
+  "name": "Build a wall",
+  "description": "This is a sea wall. NOT a border wall."
+}
+
+### Add a resource
+post http://localhost:2020/api/resources
+content-type: application/json
+
+{
+  "name": "Clay tablets",
+  "description": "In case the printer doesn't work."
 }
