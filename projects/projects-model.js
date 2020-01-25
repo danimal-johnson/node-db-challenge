@@ -32,9 +32,9 @@ function getAllTasks () {
     // ON P.id = T.project_id;
 
   return db("Task as T")
-    .join("Project as P", "P.id", "=", "T.project_id")
-    .select("T.id", "T.description", "T.notes", "T.completed",
-            "P.name", "P.description");
+    .join("Project as P", "T.project_id", "=", "P.id")
+    .select("T.id as Task.id", "T.description", "T.notes", "T.completed",
+            "P.name as ProjectName", "P.description as ProjectDesc");
 }
 
 function getTaskById (id) {
@@ -45,9 +45,14 @@ function getTaskById (id) {
 
 function getTasksByProjectId (id) {
   return db("Task as T")
-    .join ("Project as P", "P.id", "T.project_id")
-    .where({project_id: id})
-    .select('')
+  .join("Project as P", "T.project_id", "=", "P.id")
+  .select("T.id as Task.id", "T.description", "T.notes", "T.completed")
+  .where('P.id', id);
+
+  // return db("Task as T")
+  //   .join ("Project as P", "P.id", "T.project_id")
+  //   .where({project_id: id})
+  //   .select('')
 }
 
 function getAllResources () {
@@ -61,7 +66,7 @@ function getResourceById (id) {
 }
 
 function getResourcesByProjectId (id) {
-
+  // For future use
 }
 
 // ------ Add New items -------
@@ -87,8 +92,6 @@ function addResource (resourceData) {
 }
 
 function addTask (taskData) {
-  // getProjectById(taskData.project_id) // Make sure there's a project 1st
-  // .then ( () => {
     return db("Task")
       .insert(taskData)
       .then(taskList => {
@@ -96,6 +99,4 @@ function addTask (taskData) {
         return getTaskById(taskId);
       })
       .catch(err => console.log(err));
-  // }
-  // .catch(err => console.log(err)); // The Project ID wasn't in the DB
 }
